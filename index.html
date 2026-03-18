@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boostly — Own Your Customers. Drive Repeat Revenue.</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --orange: #7C3AED;
+      --orange-dark: #6D28D9;
+      --black: #0E0E0E;
+      --gray-dark: #1A1A1A;
+      --gray: #2E2E2E;
+      --gray-light: #F5F5F5;
+      --white: #FFFFFF;
+      --text-muted: #888;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      position: sticky;
+      top: 0;
+      background: rgba(14,14,14,0.95);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+      border-bottom: 1px solid #222;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--orange);
+      letter-spacing: -0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-cta {
+      background: var(--orange);
+      color: white !important;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px !important;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover { background: var(--orange-dark) !important; color: white !important; }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 100px 60px 80px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,92,26,0.15);
+      color: var(--orange);
+      border: 1px solid rgba(255,92,26,0.3);
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 28px;
+      letter-spacing: 0.5px;
+    }
+
+    h1 {
+      font-size: clamp(40px, 6vw, 68px);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      margin-bottom: 24px;
+    }
+
+    h1 span { color: var(--orange); }
+
+    .hero-sub {
+      font-size: 20px;
+      color: #aaa;
+      max-width: 600px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--orange);
+      color: white;
+      padding: 16px 32px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.1s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: var(--orange-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      padding: 16px 32px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid #444;
+      transition: border-color 0.2s, transform 0.1s;
+      display: inline-block;
+    }
+
+    .btn-secondary:hover {
+      border-color: #888;
+      transform: translateY(-1px);
+    }
+
+    /* SOCIAL PROOF BAR */
+    .social-proof {
+      border-top: 1px solid #222;
+      border-bottom: 1px solid #222;
+      padding: 24px 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 48px;
+      flex-wrap: wrap;
+      background: var(--gray-dark);
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--orange);
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .stat-divider {
+      width: 1px;
+      height: 40px;
+      background: #333;
+    }
+
+    /* PROBLEM SECTION */
+    .problem {
+      padding: 100px 60px;
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      font-size: clamp(30px, 4vw, 48px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 20px;
+      line-height: 1.1;
+    }
+
+    h2 span { color: var(--orange); }
+
+    .problem-sub {
+      font-size: 18px;
+      color: #aaa;
+      max-width: 600px;
+      margin: 0 auto 60px;
+    }
+
+    .problem-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      text-align: left;
+    }
+
+    .problem-card {
+      background: var(--gray-dark);
+      border: 1px solid #2a2a2a;
+      border-radius: 16px;
+      padding: 32px;
+    }
+
+    .problem-icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+
+    .problem-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .problem-card p {
+      font-size: 15px;
+      color: #888;
+      line-height: 1.6;
+    }
+
+    /* HOW IT WORKS */
+    .how {
+      padding: 100px 60px;
+      background: var(--gray-dark);
+    }
+
+    .how-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 32px;
+      margin-top: 60px;
+      text-align: left;
+    }
+
+    .step {
+      position: relative;
+    }
+
+    .step-number {
+      width: 44px;
+      height: 44px;
+      background: var(--orange);
+      color: white;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .step h3 {
+      font-size: 19px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .step p {
+      font-size: 15px;
+      color: #888;
+      line-height: 1.6;
+    }
+
+    /* FEATURES */
+    .features {
+      padding: 100px 60px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .features-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: var(--gray-dark);
+      border: 1px solid #2a2a2a;
+      border-radius: 16px;
+      padding: 32px;
+      transition: border-color 0.2s;
+    }
+
+    .feature-card:hover {
+      border-color: var(--orange);
+    }
+
+    .feature-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--orange);
+      background: rgba(255,92,26,0.1);
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+    }
+
+    .feature-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .feature-card p {
+      font-size: 15px;
+      color: #888;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .feature-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .feature-bullets li {
+      font-size: 14px;
+      color: #aaa;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .feature-bullets li::before {
+      content: "→";
+      color: var(--orange);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* TESTIMONIALS */
+    .testimonials {
+      padding: 100px 60px;
+      background: var(--gray-dark);
+    }
+
+    .testimonials-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 60px;
+      text-align: left;
+    }
+
+    .testimonial-card {
+      background: var(--black);
+      border: 1px solid #2a2a2a;
+      border-radius: 16px;
+      padding: 32px;
+    }
+
+    .stars {
+      color: var(--orange);
+      font-size: 18px;
+      margin-bottom: 16px;
+      letter-spacing: 2px;
+    }
+
+    .testimonial-text {
+      font-size: 16px;
+      color: #ccc;
+      line-height: 1.7;
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .author-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--orange), #ff8c5a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 16px;
+    }
+
+    .author-name {
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .author-title {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* RESULT CALLOUT */
+    .result-callout {
+      padding: 80px 60px;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .result-box {
+      background: linear-gradient(135deg, rgba(255,92,26,0.15), rgba(255,92,26,0.05));
+      border: 1px solid rgba(255,92,26,0.3);
+      border-radius: 24px;
+      padding: 60px;
+    }
+
+    .result-box .big-stat {
+      font-size: clamp(48px, 8vw, 80px);
+      font-weight: 900;
+      color: var(--orange);
+      letter-spacing: -3px;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .result-box p {
+      font-size: 20px;
+      color: #aaa;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* PRICING */
+    .pricing {
+      padding: 100px 60px;
+      background: var(--gray-dark);
+    }
+
+    .pricing-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .pricing-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 60px;
+      text-align: left;
+    }
+
+    .pricing-card {
+      background: var(--black);
+      border: 1px solid #2a2a2a;
+      border-radius: 20px;
+      padding: 36px;
+      position: relative;
+    }
+
+    .pricing-card.featured {
+      border-color: var(--orange);
+    }
+
+    .featured-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--orange);
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 16px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    .pricing-tier {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .pricing-price {
+      font-size: 42px;
+      font-weight: 900;
+      letter-spacing: -2px;
+      margin-bottom: 4px;
+    }
+
+    .pricing-period {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+
+    .pricing-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .pricing-features li {
+      font-size: 14px;
+      color: #aaa;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .pricing-features li::before {
+      content: "✓";
+      color: var(--orange);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* CTA SECTION */
+    .cta-section {
+      padding: 120px 60px;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .cta-section h2 {
+      font-size: clamp(36px, 5vw, 56px);
+      margin-bottom: 20px;
+    }
+
+    .cta-section p {
+      font-size: 18px;
+      color: #aaa;
+      margin-bottom: 40px;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid #222;
+      padding: 40px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: gap;
+      background: var(--gray-dark);
+    }
+
+    .footer-logo {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--orange);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover { color: var(--white); }
+
+    .footer-copy {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .hero { padding: 60px 24px; }
+      .social-proof { padding: 24px; gap: 24px; }
+      .stat-divider { display: none; }
+      .problem, .features, .result-callout, .cta-section { padding: 60px 24px; }
+      .how, .testimonials, .pricing { padding: 60px 24px; }
+      .result-box { padding: 40px 24px; }
+      footer { padding: 32px 24px; flex-direction: column; gap: 20px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">Boostly</div>
+    <ul class="nav-links">
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#" class="nav-cta">Get Started Free</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">Built for Restaurant Owners</div>
+    <h1>Stop Renting Your<br /><span>Customers From DoorDash.</span></h1>
+    <p class="hero-sub">Boostly gives you the tools to capture customer data in-store, re-engage them with SMS, and track every dollar of repeat revenue — all in one platform.</p>
+    <div class="hero-ctas">
+      <a href="#" class="btn-primary">Start Owning Your Customers →</a>
+      <a href="#how" class="btn-secondary">See How It Works</a>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF BAR -->
+  <div class="social-proof">
+    <div class="stat">
+      <div class="stat-number">2,400+</div>
+      <div class="stat-label">Restaurants on Boostly</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-number">$42M+</div>
+      <div class="stat-label">Revenue Driven for Clients</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-number">68%</div>
+      <div class="stat-label">Average Repeat Visit Increase</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-number">4.9★</div>
+      <div class="stat-label">Average Customer Rating</div>
+    </div>
+  </div>
+
+  <!-- PROBLEM -->
+  <section class="problem">
+    <p class="section-label">The Problem</p>
+    <h2>You Serve Hundreds of Guests.<br /><span>You Don't Know Any of Them.</span></h2>
+    <p class="problem-sub">Third-party apps take 30% of your order and keep 100% of your customer data. Here's what that's costing you.</p>
+    <div class="problem-cards">
+      <div class="problem-card">
+        <div class="problem-icon">💸</div>
+        <h3>DoorDash Owns Your Customers</h3>
+        <p>Every order placed through a delivery app is a customer you don't own. They come back — but through the app, not through you.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">🚪</div>
+        <h3>70% Never Come Back</h3>
+        <p>Without a way to re-engage guests after their first visit, most of them walk out and never return. No list. No follow-up. No second visit.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">📉</div>
+        <h3>No Way to Track What's Working</h3>
+        <p>You're spending on promotions and ads but have no idea which ones actually drove people through the door. You're guessing.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how" id="how">
+    <div class="how-inner">
+      <p class="section-label">How It Works</p>
+      <h2>From First Visit to <span>Loyal Regular</span></h2>
+      <p class="problem-sub">Boostly works in three steps to turn every guest into a long-term customer you own.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Capture In-Store</h3>
+          <p>Tap cards, QR codes, and kiosk flows make it effortless to collect customer contact info at the moment they're already in your restaurant. No friction. No extra work for your staff.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Engage via SMS</h3>
+          <p>Send promotions, birthday offers, win-back campaigns, and personalized messages directly to their phone. No algorithm. No feed. Just a direct line to your customers.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Track Real Revenue</h3>
+          <p>See which campaigns drove repeat visits and exactly how much revenue Boostly generated. Know your ROI down to the dollar — every single month.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="features-header">
+      <p class="section-label">The Platform</p>
+      <h2>Everything You Need.<br /><span>Nothing You Don't.</span></h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feature-tag">Capture</span>
+        <h3>In-Store Growth Engine</h3>
+        <p>Turn every table into a list-building machine without adding work for your team.</p>
+        <ul class="feature-bullets">
+          <li>NFC tap cards — one tap to opt in</li>
+          <li>QR codes for tables, receipts & signage</li>
+          <li>Kiosk & tablet sign-up flows</li>
+          <li>Smart review routing (happy vs unhappy guests)</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <span class="feature-tag">Engage</span>
+        <h3>SMS & MMS Marketing</h3>
+        <p>Reach customers directly on their phones with campaigns that actually get read.</p>
+        <ul class="feature-bullets">
+          <li>Text & image campaigns with high deliverability</li>
+          <li>Automated birthday and loyalty flows</li>
+          <li>Gamified texting experiences</li>
+          <li>Personalized messaging at scale</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <span class="feature-tag">Acquire</span>
+        <h3>Off-Site Campaigns</h3>
+        <p>Win back lapsed customers and drive new ones through targeted campaigns.</p>
+        <ul class="feature-bullets">
+          <li>Database reactivation (win-back sequences)</li>
+          <li>Audience segmentation by visit & spend</li>
+          <li>Promo & event campaign builder</li>
+          <li>Facebook & Google audience sync</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <span class="feature-tag">Measure</span>
+        <h3>Revenue Dashboard</h3>
+        <p>Stop guessing. See exactly what Boostly is doing for your bottom line.</p>
+        <ul class="feature-bullets">
+          <li>Repeat visit tracking</li>
+          <li>Campaign revenue attribution</li>
+          <li>Customer lifetime value insights</li>
+          <li>Simple ROI snapshot — spent X, earned $Y</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULT CALLOUT -->
+  <section class="result-callout">
+    <div class="result-box">
+      <div class="big-stat">+$11,400</div>
+      <p>Average additional monthly revenue generated for Boostly restaurants in their first 90 days.</p>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="testimonials-inner">
+      <p class="section-label">Real Results</p>
+      <h2>Restaurant Owners <span>Love Boostly</span></h2>
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">"We captured 800 new contacts in our first month just from the tap cards. Our Tuesday slow nights are gone — we just send a deal and the tables fill up."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">M</div>
+            <div>
+              <div class="author-name">Marco R.</div>
+              <div class="author-title">Owner, Rosso Trattoria — Chicago, IL</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">"I used to have no idea who my customers were. Now I have a list of 3,000 people and I can text them whenever I want. DoorDash doesn't own my business anymore."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">J</div>
+            <div>
+              <div class="author-name">Jamie T.</div>
+              <div class="author-title">Owner, The Burger Collective — Austin, TX</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">"The ROI dashboard sold me. I can see we sent 1,200 texts, 340 people came in, and it generated $8,200. My accountant loves it more than I do."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">S</div>
+            <div>
+              <div class="author-name">Sofia G.</div>
+              <div class="author-title">Owner, Playa Tacos — Miami, FL</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing" id="pricing">
+    <div class="pricing-inner">
+      <p class="section-label">Pricing</p>
+      <h2>Simple Pricing.<br /><span>Serious Returns.</span></h2>
+      <div class="pricing-cards">
+        <div class="pricing-card">
+          <div class="pricing-tier">Starter</div>
+          <div class="pricing-price">$297</div>
+          <div class="pricing-period">per month</div>
+          <ul class="pricing-features">
+            <li>NFC tap cards (2 included)</li>
+            <li>QR code opt-in pages</li>
+            <li>SMS campaigns (up to 1,000 contacts)</li>
+            <li>Basic automation flows</li>
+            <li>Performance dashboard</li>
+          </ul>
+          <a href="#" class="btn-secondary" style="display:block; text-align:center;">Get Started</a>
+        </div>
+        <div class="pricing-card featured">
+          <div class="featured-badge">Most Popular</div>
+          <div class="pricing-tier">Growth</div>
+          <div class="pricing-price">$597</div>
+          <div class="pricing-period">per month</div>
+          <ul class="pricing-features">
+            <li>NFC tap cards (5 included)</li>
+            <li>QR codes + kiosk flow</li>
+            <li>Unlimited SMS campaigns</li>
+            <li>Full automation suite</li>
+            <li>Win-back & reactivation campaigns</li>
+            <li>Revenue attribution dashboard</li>
+            <li>Review generation routing</li>
+          </ul>
+          <a href="#" class="btn-primary" style="display:block; text-align:center;">Start Free Trial</a>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-tier">Multi-Location</div>
+          <div class="pricing-price">Custom</div>
+          <div class="pricing-period">contact us</div>
+          <ul class="pricing-features">
+            <li>Everything in Growth</li>
+            <li>Multi-location dashboard</li>
+            <li>Franchise-level reporting</li>
+            <li>Dedicated account manager</li>
+            <li>Custom integrations</li>
+            <li>White-glove onboarding</li>
+          </ul>
+          <a href="#" class="btn-secondary" style="display:block; text-align:center;">Talk to Sales</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <p class="section-label">Get Started Today</p>
+    <h2>Your Customers Are Walking Out.<br /><span>Start Bringing Them Back.</span></h2>
+    <p>Join 2,400+ restaurants that have stopped renting their audience and started owning it. No contracts. Cancel anytime.</p>
+    <a href="#" class="btn-primary" style="font-size: 18px; padding: 20px 40px;">Start Your Free Trial →</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Boostly</div>
+    <ul class="footer-links">
+      <li><a href="#">Features</a></li>
+      <li><a href="#">Pricing</a></li>
+      <li><a href="#">Case Studies</a></li>
+      <li><a href="#">Privacy</a></li>
+      <li><a href="#">Terms</a></li>
+    </ul>
+    <div class="footer-copy">© 2026 Boostly. All rights reserved.</div>
+  </footer>
+
+</body>
+</html>
