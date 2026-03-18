@@ -5,6 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Boostly — Own Your Customers. Drive Repeat Revenue.</title>
   <style>
+    /* SPLASH SCREEN */
+    #splash {
+      position: fixed;
+      inset: 0;
+      background: var(--black, #0E0E0E);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.6s ease;
+    }
+
+    #splash.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .pizza {
+      font-size: 80px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
@@ -644,6 +672,17 @@
   </style>
 </head>
 <body>
+
+  <!-- SPLASH SCREEN -->
+  <div id="splash">
+    <div class="pizza">🍕</div>
+  </div>
+
+  <script>
+    setTimeout(() => {
+      document.getElementById('splash').classList.add('hidden');
+    }, 3000);
+  </script>
 
   <!-- NAV -->
   <nav>
