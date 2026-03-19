@@ -4,25 +4,41 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ROI Calculator — Boostly</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --purple: #7C3AED;
-      --purple-dark: #6D28D9;
-      --purple-light: rgba(124,58,237,0.08);
+      --orange: #C8541A;
+      --orange-dark: #A8420F;
+      --orange-light: rgba(200,84,26,0.08);
+      --bg: #FAF8F4;
+      --bg-warm: #F2EDE4;
+      --bg-dark: #1C1712;
+      --text: #1C1712;
+      --text-mid: #4A4035;
+      --text-muted: #7A6E63;
+      --border: #DDD5C8;
       --white: #FFFFFF;
-      --bg: #F4F4F6;
-      --text: #0E0E0E;
-      --muted: #666;
-      --border: #e0e0e0;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
+      line-height: 1.65;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.4;
     }
 
     /* NAV */
@@ -30,140 +46,163 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 60px;
+      padding: 0 60px;
+      height: 72px;
       position: sticky;
       top: 0;
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(10px);
+      background: rgba(250,248,244,0.92);
+      backdrop-filter: blur(12px);
       z-index: 100;
       border-bottom: 1px solid var(--border);
     }
 
     .logo {
-      font-size: 24px;
-      font-weight: 800;
-      color: var(--purple);
-      letter-spacing: -0.5px;
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--text);
       text-decoration: none;
     }
+
+    .logo span { color: var(--orange); }
 
     .nav-links {
       display: flex;
-      gap: 32px;
+      gap: 36px;
       list-style: none;
+      align-items: center;
     }
 
     .nav-links a {
-      color: #555;
+      color: var(--text-muted);
       text-decoration: none;
       font-size: 14px;
+      font-weight: 500;
       transition: color 0.2s;
     }
 
     .nav-links a:hover { color: var(--text); }
 
     .nav-cta {
-      background: var(--purple);
-      color: white !important;
-      padding: 10px 22px;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 14px !important;
+      background: var(--orange) !important;
+      color: var(--white) !important;
+      padding: 10px 24px !important;
+      border-radius: 6px;
+      font-weight: 600 !important;
     }
 
-    .nav-cta:hover { background: var(--purple-dark) !important; }
+    .nav-cta:hover { background: var(--orange-dark) !important; }
 
     /* PAGE HEADER */
     .page-header {
+      background: var(--bg-dark);
+      padding: 72px 60px 64px;
       text-align: center;
-      padding: 72px 60px 48px;
-      max-width: 720px;
-      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(200,84,26,0.18) 0%, transparent 70%);
+      pointer-events: none;
     }
 
     .page-badge {
       display: inline-block;
-      background: var(--purple-light);
-      color: var(--purple);
-      border: 1px solid rgba(124,58,237,0.2);
-      padding: 6px 16px;
-      border-radius: 100px;
-      font-size: 13px;
-      font-weight: 600;
+      background: rgba(200,84,26,0.15);
+      color: var(--orange);
+      border: 1px solid rgba(200,84,26,0.25);
+      padding: 5px 14px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
       margin-bottom: 20px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
     }
 
     .page-header h1 {
-      font-size: clamp(32px, 5vw, 52px);
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 5vw, 60px);
       font-weight: 900;
-      letter-spacing: -1.5px;
+      letter-spacing: -1px;
       line-height: 1.05;
       margin-bottom: 16px;
+      color: white;
     }
 
-    .page-header h1 span { color: var(--purple); }
+    .page-header h1 em {
+      font-style: italic;
+      color: var(--orange);
+    }
 
     .page-header p {
-      font-size: 18px;
-      color: var(--muted);
+      font-size: 17px;
+      color: rgba(255,255,255,0.45);
       max-width: 520px;
       margin: 0 auto;
+      line-height: 1.65;
     }
 
-    /* CALCULATOR LAYOUT */
+    /* CALC WRAPPER */
     .calc-wrapper {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 0 60px 100px;
+      padding: 60px 60px 100px;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 40px;
       align-items: start;
     }
 
-    /* INPUTS PANEL */
+    /* INPUTS */
     .inputs-panel {
-      background: var(--bg);
-      border-radius: 20px;
+      background: var(--bg-warm);
+      border: 1px solid var(--border);
+      border-radius: 16px;
       padding: 40px;
     }
 
     .inputs-panel h2 {
-      font-size: 18px;
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
       font-weight: 700;
-      margin-bottom: 32px;
+      margin-bottom: 36px;
       letter-spacing: -0.3px;
     }
 
-    .input-group {
-      margin-bottom: 32px;
-    }
-
-    .input-group:last-child {
-      margin-bottom: 0;
-    }
+    .input-group { margin-bottom: 34px; }
+    .input-group:last-child { margin-bottom: 0; }
 
     .input-label {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
       color: var(--text);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      letter-spacing: 0.01em;
     }
 
     .input-value {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
-      color: var(--purple);
+      color: var(--orange);
     }
 
     input[type="range"] {
       width: 100%;
-      height: 4px;
+      height: 3px;
       border-radius: 2px;
-      background: #ddd;
+      background: var(--border);
       outline: none;
       -webkit-appearance: none;
       cursor: pointer;
@@ -175,73 +214,66 @@
       width: 20px;
       height: 20px;
       border-radius: 50%;
-      background: var(--purple);
+      background: var(--orange);
       cursor: pointer;
-      border: 3px solid white;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-    }
-
-    input[type="range"]::-webkit-slider-runnable-track {
-      height: 4px;
-      border-radius: 2px;
+      border: 3px solid var(--bg-warm);
+      box-shadow: 0 1px 6px rgba(200,84,26,0.3);
     }
 
     .range-labels {
       display: flex;
       justify-content: space-between;
       font-size: 11px;
-      color: var(--muted);
+      color: var(--text-muted);
     }
 
     .plan-toggle {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
-      margin-top: 4px;
+      margin-top: 6px;
     }
 
     .plan-btn {
-      padding: 12px;
-      border: 2px solid var(--border);
+      padding: 14px;
+      border: 1.5px solid var(--border);
       border-radius: 10px;
-      background: white;
+      background: var(--bg);
       cursor: pointer;
       text-align: center;
       transition: all 0.15s;
     }
 
     .plan-btn.active {
-      border-color: var(--purple);
-      background: var(--purple-light);
+      border-color: var(--orange);
+      background: var(--orange-light);
     }
 
     .plan-btn-name {
       font-size: 13px;
       font-weight: 700;
-      color: var(--text);
+      color: var(--text-muted);
     }
 
-    .plan-btn.active .plan-btn-name {
-      color: var(--purple);
-    }
+    .plan-btn.active .plan-btn-name { color: var(--orange); }
 
     .plan-btn-price {
       font-size: 12px;
-      color: var(--muted);
+      color: var(--text-muted);
       margin-top: 2px;
     }
 
-    /* RESULTS PANEL */
+    /* RESULTS */
     .results-panel {
       position: sticky;
-      top: 100px;
+      top: 90px;
     }
 
     .results-panel h2 {
-      font-size: 18px;
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
       font-weight: 700;
       margin-bottom: 20px;
-      letter-spacing: -0.3px;
     }
 
     .result-cards {
@@ -252,84 +284,90 @@
     }
 
     .result-card {
-      background: var(--bg);
-      border-radius: 14px;
-      padding: 20px;
+      background: var(--bg-warm);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
     }
 
     .result-card.primary {
       grid-column: span 2;
-      background: var(--purple);
-      color: white;
+      background: var(--bg-dark);
+      border-color: transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .result-card.primary::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 160px;
+      height: 160px;
+      background: radial-gradient(circle, rgba(200,84,26,0.25) 0%, transparent 70%);
     }
 
     .result-card-label {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--muted);
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
       margin-bottom: 8px;
     }
 
-    .result-card.primary .result-card-label {
-      color: rgba(255,255,255,0.7);
-    }
+    .result-card.primary .result-card-label { color: rgba(255,255,255,0.35); }
 
     .result-card-value {
-      font-size: 32px;
+      font-family: 'Playfair Display', serif;
+      font-size: 34px;
       font-weight: 900;
       letter-spacing: -1px;
-      color: var(--purple);
+      color: var(--orange);
       line-height: 1;
     }
 
     .result-card.primary .result-card-value {
-      font-size: 48px;
+      font-size: 52px;
       color: white;
       letter-spacing: -2px;
     }
 
     .result-card-sub {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 4px;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 5px;
     }
 
-    .result-card.primary .result-card-sub {
-      color: rgba(255,255,255,0.75);
-    }
+    .result-card.primary .result-card-sub { color: rgba(255,255,255,0.35); }
 
-    /* SUMMARY LINE */
+    /* SUMMARY */
     .summary-box {
-      background: var(--purple-light);
-      border: 1px solid rgba(124,58,237,0.2);
-      border-radius: 14px;
+      background: var(--orange-light);
+      border: 1px solid rgba(200,84,26,0.2);
+      border-radius: 12px;
       padding: 20px 24px;
       margin-bottom: 20px;
     }
 
     .summary-box p {
-      font-size: 15px;
-      color: var(--text);
-      line-height: 1.6;
+      font-size: 14px;
+      color: var(--text-mid);
+      line-height: 1.65;
     }
 
-    .summary-box strong {
-      color: var(--purple);
-    }
+    .summary-box strong { color: var(--orange); }
 
     /* BREAKDOWN */
-    .breakdown {
-      margin-bottom: 24px;
-    }
+    .breakdown { margin-bottom: 24px; }
 
     .breakdown-title {
-      font-size: 13px;
+      font-size: 11px;
       font-weight: 700;
-      color: var(--muted);
+      color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.08em;
       margin-bottom: 12px;
     }
 
@@ -337,60 +375,41 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 0;
+      padding: 11px 0;
       border-bottom: 1px solid var(--border);
-      font-size: 14px;
+      font-size: 13px;
     }
 
-    .breakdown-row:last-child {
-      border-bottom: none;
-    }
-
-    .breakdown-row-label {
-      color: var(--muted);
-    }
-
-    .breakdown-row-value {
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .breakdown-row.total .breakdown-row-label {
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .breakdown-row.total .breakdown-row-value {
-      color: var(--purple);
-      font-size: 16px;
-    }
-
-    .breakdown-row.cost .breakdown-row-value {
-      color: #e53e3e;
-    }
+    .breakdown-row:last-child { border-bottom: none; }
+    .breakdown-row-label { color: var(--text-muted); }
+    .breakdown-row-value { font-weight: 600; color: var(--text); }
+    .breakdown-row.total .breakdown-row-label { font-weight: 600; color: var(--text); }
+    .breakdown-row.total .breakdown-row-value { color: var(--orange); font-size: 15px; }
+    .breakdown-row.cost .breakdown-row-value { color: #b91c1c; }
 
     /* CTA */
     .calc-cta {
       display: block;
-      background: var(--purple);
+      background: var(--orange);
       color: white;
       text-align: center;
       padding: 16px;
-      border-radius: 10px;
-      font-size: 16px;
-      font-weight: 700;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
       text-decoration: none;
       transition: background 0.2s;
+      letter-spacing: 0.01em;
     }
 
-    .calc-cta:hover { background: var(--purple-dark); }
+    .calc-cta:hover { background: var(--orange-dark); }
 
     .calc-disclaimer {
-      font-size: 12px;
-      color: var(--muted);
+      font-size: 11px;
+      color: var(--text-muted);
       text-align: center;
       margin-top: 12px;
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
     /* FOOTER */
@@ -402,40 +421,39 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 20px;
-      background: var(--bg);
+      background: var(--bg-warm);
     }
 
     .footer-logo {
+      font-family: 'Playfair Display', serif;
       font-size: 20px;
-      font-weight: 800;
-      color: var(--purple);
+      font-weight: 900;
+      color: var(--text);
     }
+
+    .footer-logo span { color: var(--orange); }
 
     .footer-links {
       display: flex;
-      gap: 24px;
+      gap: 28px;
       list-style: none;
     }
 
     .footer-links a {
       font-size: 13px;
-      color: var(--muted);
+      color: var(--text-muted);
       text-decoration: none;
     }
 
     .footer-links a:hover { color: var(--text); }
 
-    .footer-copy {
-      font-size: 13px;
-      color: var(--muted);
-    }
+    .footer-copy { font-size: 13px; color: var(--text-muted); }
 
-    /* RESPONSIVE */
     @media (max-width: 768px) {
-      nav { padding: 16px 24px; }
+      nav { padding: 0 24px; }
       .nav-links { display: none; }
-      .page-header { padding: 48px 24px 32px; }
-      .calc-wrapper { grid-template-columns: 1fr; padding: 0 24px 60px; gap: 24px; }
+      .page-header { padding: 48px 24px 40px; }
+      .calc-wrapper { grid-template-columns: 1fr; padding: 32px 24px 60px; }
       .results-panel { position: static; }
       footer { padding: 32px 24px; flex-direction: column; text-align: center; }
     }
@@ -445,7 +463,7 @@
 
   <!-- NAV -->
   <nav>
-    <a href="index.html" class="logo">Boostly</a>
+    <a href="index.html" class="logo">Boost<span>ly</span></a>
     <ul class="nav-links">
       <li><a href="index.html#how">How It Works</a></li>
       <li><a href="index.html#features">Features</a></li>
@@ -454,10 +472,10 @@
     </ul>
   </nav>
 
-  <!-- PAGE HEADER -->
+  <!-- HEADER -->
   <div class="page-header">
     <div class="page-badge">ROI Calculator</div>
-    <h1>See What Boostly Would<br /><span>Make Your Restaurant</span></h1>
+    <h1>See What Boostly Would<br /><em>Make Your Restaurant</em></h1>
     <p>Plug in your numbers. We'll show you the estimated monthly revenue, annual return, and how fast you'd make back the cost.</p>
   </div>
 
@@ -572,7 +590,7 @@
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-logo">Boostly</div>
+    <div class="footer-logo">Boost<span>ly</span></div>
     <ul class="footer-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="index.html#features">Features</a></li>
@@ -598,46 +616,38 @@
     }
 
     function calculate() {
-      const covers   = parseInt(document.getElementById('covers').value);
-      const ticket   = parseInt(document.getElementById('ticket').value);
+      const covers    = parseInt(document.getElementById('covers').value);
+      const ticket    = parseInt(document.getElementById('ticket').value);
       const repeatPct = parseInt(document.getElementById('repeat').value) / 100;
 
-      // Update display labels
       document.getElementById('covers-display').textContent = covers.toLocaleString() + ' guests';
       document.getElementById('ticket-display').textContent = '$' + ticket;
       document.getElementById('repeat-display').textContent = (repeatPct * 100) + '%';
 
-      // Core calculations
-      const monthlyGuests     = covers * 4.33;
+      const monthlyGuests      = covers * 4.33;
       const monthlyNewContacts = Math.round(monthlyGuests * 0.34);
       const additionalRepeats  = Math.round(monthlyGuests * repeatPct * 0.68);
       const repeatRevenue      = additionalRepeats * ticket;
+      const campaignList       = monthlyNewContacts * 3;
+      const campaignGuests     = Math.round(campaignList * 0.10);
+      const campaignRevenue    = campaignGuests * ticket;
+      const totalRevenue       = repeatRevenue + campaignRevenue;
+      const netROI             = totalRevenue - planCost;
+      const annualROI          = netROI * 12;
+      const paybackDays        = Math.round(planCost / (totalRevenue / 30));
+      const multiplier         = (totalRevenue / planCost).toFixed(1);
 
-      // Campaign: 3-month list size × 10% conversion
-      const campaignList     = monthlyNewContacts * 3;
-      const campaignGuests   = Math.round(campaignList * 0.10);
-      const campaignRevenue  = campaignGuests * ticket;
-
-      const totalRevenue  = repeatRevenue + campaignRevenue;
-      const netROI        = totalRevenue - planCost;
-      const annualROI     = netROI * 12;
-      const paybackDays   = Math.round(planCost / (totalRevenue / 30));
-      const multiplier    = (totalRevenue / planCost).toFixed(1);
-
-      // Update results
       document.getElementById('res-monthly').textContent = fmt(totalRevenue);
       document.getElementById('res-net').textContent     = fmt(netROI);
       document.getElementById('res-annual').textContent  = fmt(annualROI);
 
-      // Breakdown
-      document.getElementById('bk-contacts').textContent    = monthlyNewContacts.toLocaleString();
-      document.getElementById('bk-repeats').textContent     = additionalRepeats.toLocaleString();
-      document.getElementById('bk-repeat-rev').textContent  = fmt(repeatRevenue);
+      document.getElementById('bk-contacts').textContent     = monthlyNewContacts.toLocaleString();
+      document.getElementById('bk-repeats').textContent      = additionalRepeats.toLocaleString();
+      document.getElementById('bk-repeat-rev').textContent   = fmt(repeatRevenue);
       document.getElementById('bk-campaign-rev').textContent = fmt(campaignRevenue);
-      document.getElementById('bk-total').textContent       = fmt(totalRevenue);
-      document.getElementById('bk-cost').textContent        = '−' + fmt(planCost);
+      document.getElementById('bk-total').textContent        = fmt(totalRevenue);
+      document.getElementById('bk-cost').textContent         = '−' + fmt(planCost);
 
-      // Summary
       document.getElementById('summary-text').innerHTML =
         `Based on <strong>${covers.toLocaleString()} weekly covers</strong> at <strong>$${ticket}/ticket</strong>, ` +
         `Boostly would generate an estimated <strong>${fmt(totalRevenue)}/month</strong> in additional revenue ` +
@@ -645,12 +655,10 @@
         `You'd make back the monthly cost in <strong>${paybackDays} days</strong>.`;
     }
 
-    // Wire up sliders
     ['covers', 'ticket', 'repeat'].forEach(id => {
       document.getElementById(id).addEventListener('input', calculate);
     });
 
-    // Initial render
     calculate();
   </script>
 
